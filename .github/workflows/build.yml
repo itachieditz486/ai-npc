@@ -1,0 +1,73 @@
+name: Build RAVEX AI Civilization
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # Installs Gradle 8.10.2 itself, so no gradle-wrapper.jar is needed in the repo.
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: gradle clean build
+        shell: bash
+        run: |
+          set -o pipefail
+          gradle clean build --stacktrace --console=plain 2>&1 | tee build.log
+
+      - name: Report failure
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo "## Build FAILED"
+            echo "Download the 'build-logs' artifact for the full log. Last 40 lines:"
+            echo '```'
+            tail -n 40 build.log || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload compiled JAR
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ravex-ai-civilization-jar
+          path: build/libs/*.jar
+          if-no-files-found: error
+
+      - name: Package source ZIP
+        if: always()
+        shell: bash
+        run: zip -r ravex-ai-civilization-source.zip . -x ".git/*" "build/*" ".gradle/*" "*.zip"
+
+      - name: Upload source ZIP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ravex-ai-civilization-source
+          path: ravex-ai-civilization-source.zip
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            build.log
+            build/reports/**
+          if-no-files-found: ignore
