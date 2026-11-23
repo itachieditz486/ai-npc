@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="ravex_civ"
+version="0.1.0"
+displayName="RAVEX AI Civilization"
+authors="RAVEX"
+description='''
+Singleplayer AI-driven NPCs (Yassine and random villagers-of-the-player) that you talk to through normal Minecraft chat.
+'''
+
+[[dependencies.ravex_civ]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.ravex_civ]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="BOTH"

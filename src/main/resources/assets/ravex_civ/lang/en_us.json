@@ -1,0 +1,6 @@
+{
+  "entity.ravex_civ.npc": "NPC",
+  "item.ravex_civ.yassine_spawn_egg": "Yassine Spawn Egg",
+  "item.ravex_civ.random_npc_spawn_egg": "Random NPC Spawn Egg",
+  "itemGroup.ravex_civ": "RAVEX AI Civilization"
+}

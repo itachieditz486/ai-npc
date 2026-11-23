@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": { "layer0": "ravex_civ:item/yassine_spawn_egg" }
+}

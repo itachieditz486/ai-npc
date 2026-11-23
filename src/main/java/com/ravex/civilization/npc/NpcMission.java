@@ -1,0 +1,5 @@
+package com.ravex.civilization.npc;
+
+public enum NpcMission {
+    IDLE, FOLLOW, PROTECT, COLLECT_WOOD, COLLECT_BLOCKS, ATTACK_MOBS, GUARD, STAY, COME, RETURN_HOME, FOLLOW_NPC, HELP_FIGHT, DELIVER
+}

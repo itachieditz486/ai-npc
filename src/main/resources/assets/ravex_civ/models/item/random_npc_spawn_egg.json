@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": { "layer0": "ravex_civ:item/random_npc_spawn_egg" }
+}
